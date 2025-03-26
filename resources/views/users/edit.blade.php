@@ -37,6 +37,23 @@
             <label for="password_confirmation" class="form-label">Confirm New Password:</label>
             <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
         </div>
+        <div class="card">
+            <div class="card-header d-flex p-0">
+                <h3 class="card-title p-3">Permissions</h3>
+            </div>
+            <div class="card-body">
+                @if(isset($permissions) && isset($user->permissions))
+                @foreach($permissions as $permission)
+                    <div class="form-check">
+                        <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" class="form-check-input"
+                        id="permission-{{ $permission->id }}"
+                        {{ $user->hasPermission($permission->name) ? 'checked' : '' }}>
+                        <label class="form-check-label" for="permission-{{ $permission->id }}">{{ $permission->name }}</label>
+                    </div>
+                @endforeach
+                @endif
+            </div>
+        </div>
 
         <button type="submit" class="btn btn-success">Update User</button>
         <a href="{{ route('dashboard.users.index') }}" class="btn btn-secondary">Cancel</a>

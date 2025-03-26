@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Permission;
 
 class UserController extends Controller
 {
@@ -66,7 +67,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('users.edit', compact('user'));
+        $permissions = Permission::all();
+        // DD($permissions);
+        return view('users.edit', compact('user', 'permissions'));
     }
     
     public function update(Request $request, $id)
@@ -85,6 +88,12 @@ class UserController extends Controller
         if ($request->filled('password')) {
             $user->password = bcrypt($request->password);
         }
+        
+    if ($request->permissions) {
+        $user->syncPermissions($request->permissions);
+    } else {
+        $user->permissions()->detach();
+    }
     
         $user->save();
     
@@ -96,6 +105,8 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
+        $user = User::findOrFail($id);
+        $user->permissions()->detach();
         User :: destroy($id);
         return redirect()->route('dashboard.users.index');
     }
