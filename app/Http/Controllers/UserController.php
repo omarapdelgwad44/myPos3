@@ -45,7 +45,10 @@ class UserController extends Controller
         
         $user= User :: create($request->all());
         $user->addRole('admin');
-        $user->syncPermissions($request->permissions);
+        if ($request->permissions) {
+            $user->syncPermissions($request->permissions);
+        }
+        // $user->syncPermissions($request->permissions);
         return redirect()->route('dashboard.users.index');
     }
 

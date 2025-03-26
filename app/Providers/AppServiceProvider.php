@@ -19,6 +19,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->register();
+
+        // Implementing Laratrust permission for users
+        \Gate::define('users-read', function ($user) {
+            return $user->hasPermission('users-read');
+        });
     }
+    
 }

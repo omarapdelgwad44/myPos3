@@ -329,6 +329,7 @@ return [
             'text' => 'users',
             'route' => 'dashboard.users.index',
             'icon' => 'fas fa-fw fa-users',
+            'can' => 'users-read',
         ],
         // ['header' => 'account_settings'],
         // [
