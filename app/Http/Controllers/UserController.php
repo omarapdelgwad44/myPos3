@@ -29,13 +29,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed',
         ]);
         
-        User :: create($request->all());
+        $user= User :: create($request->all());
+        $user->addRole('admin');
+        $user->syncPermissions($request->permissions);
         return redirect()->route('dashboard.users.index');
     }
 
