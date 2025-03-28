@@ -14,8 +14,8 @@
         </div>
     @endif
 
-    <form action="{{ route('dashboard.users.store') }}" method="POST">
-        @csrf
+    <form action="{{ route('dashboard.users.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
         <div class="mb-3">
             <label for="name" class="form-label">Name:</label>
             <input type="text" name="name" id="name" class="form-control" required value="{{ old('name') }}">
@@ -24,6 +24,10 @@
         <div class="mb-3">
             <label for="email" class="form-label">Email:</label>
             <input type="email" name="email" id="email" class="form-control" required value="{{ old('email') }}">
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Profile Image:</label>
+            <input type="file" name="image" id="image" class="form-control">
         </div>
 
         <div class="mb-3">

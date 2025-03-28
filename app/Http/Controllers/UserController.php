@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Permission;
+use Intervention\Image\ImageManager;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -50,22 +52,34 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        // dd($request->all());
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8|confirmed',
-        ]);
-        
-        $user= User :: create($request->all());
-        $user->addRole('admin');
-        if ($request->permissions) {
-            $user->syncPermissions($request->permissions);
-        }
-        // $user->syncPermissions($request->permissions);
-        return redirect()->route('dashboard.users.index');
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|min:8|confirmed',
+        'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048'
+    ]);  
+
+    $data = $request->except('image'); 
+
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $imageName = time() . '.' . $image->extension();
+        $manager = ImageManager::gd();
+        $manager->read($image)
+            ->resize(300, 300) 
+            ->save(public_path('images/' . $imageName));
+        $data['image'] = $imageName; 
     }
+
+    $user = User::create($data); 
+    $user->addRole('admin');
+
+    if ($request->permissions) {
+        $user->syncPermissions($request->permissions);
+    }
+    return redirect()->route('dashboard.users.index')->with('success', 'User created successfully.');
+}
 
     /**
      * Display the specified resource.
