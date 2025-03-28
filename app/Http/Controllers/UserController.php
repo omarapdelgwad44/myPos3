@@ -61,7 +61,6 @@ class UserController extends Controller
     ]);  
 
     $data = $request->except('image'); 
-
     if ($request->hasFile('image')) {
         $image = $request->file('image');
         $imageName = time() . '.' . $image->extension();
@@ -69,9 +68,9 @@ class UserController extends Controller
         $manager->read($image)
             ->resize(300, 300) 
             ->save(public_path('images/' . $imageName));
+            // dd(public_path('images/' . $imageName));
         $data['image'] = $imageName; 
     }
-
     $user = User::create($data); 
     $user->addRole('admin');
 

@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <form action="{{ route('dashboard.users.update', $user->id) }}" method="POST">
+    <form action="{{ route('dashboard.users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -27,6 +27,12 @@
             <label for="email" class="form-label">Email:</label>
             <input type="email" name="email" id="email" class="form-control" required value="{{ old('email', $user->email) }}">
         </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Profile Image:</label>
+            <input type="file" name="image" id="image" class="form-control">
+            @if($user->image)
+            <img src="{{ asset('images/' . $user->image) }}" alt="User Image" class="img-thumbnail mt-2" style="max-width: 200px; max-height: 200px;">
+            @endif
 
         <div class="mb-3">
             <label for="password" class="form-label">New Password (optional):</label>
