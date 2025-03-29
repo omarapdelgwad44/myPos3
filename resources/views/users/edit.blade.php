@@ -46,11 +46,21 @@
         
         <div class="mb-3">
             <label for="image" class="form-label">{{ __('adminlte::adminlte.profile_image') }}:</label>
-            <input type="file" name="image" id="image" class="form-control">
+            <input type="file" name="image" id="image" class="form-control" onchange="previewImage(event)">
             @if($user->image)
-                <img src="{{ asset('images/' . $user->image) }}" alt="User Image" class="img-thumbnail mt-2" style="max-width: 200px; max-height: 200px;">
+            <img id="image-preview" src="{{ asset('images/' . $user->image) }}" alt="User Image" class="img-thumbnail mt-2" style="max-width: 200px; max-height: 200px;">
+            @else
+            <img id="image-preview" class="img-thumbnail mt-2" style="max-width: 200px; max-height: 200px; display: none;">
             @endif
         </div>
+
+        <script>
+            function previewImage(event) {
+            const imagePreview = document.getElementById('image-preview');
+            imagePreview.src = URL.createObjectURL(event.target.files[0]);
+            imagePreview.style.display = 'block';
+            }
+        </script>
 
         <div class="mb-3">
             <label for="password" class="form-label">{{ __('adminlte::adminlte.new_password') }} ({{ __('adminlte::adminlte.optional') }}):</label>

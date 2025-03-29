@@ -121,7 +121,24 @@ class UserController extends Controller
     } else {
         $user->permissions()->detach();
     }
-    
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $imageName = time() . '.' . $image->extension();
+        $manager = ImageManager::gd();
+        $manager->read($image)
+            ->resize(300, 300, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('images/' . $imageName));
+        
+        // Delete the old image if it exists
+        if ($user->image && file_exists(public_path('images/' . $user->image))) {
+            unlink(public_path('images/' . $user->image));
+        }
+
+        $user->image = $imageName;
+    }
+        $data['image'] = $imageName; 
+  
         $user->save();
     
         return redirect()->route('dashboard.users.index')->with('success', 'User updated successfully.');
@@ -134,7 +151,10 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->permissions()->detach();
+        if ($user->image && file_exists(public_path('images/' . $user->image))) {
+            unlink(public_path('images/' . $user->image));
+        }
         User :: destroy($id);
-        return redirect()->route('dashboard.users.index');
+        return redirect()->route('dashboard.users.index')->with('success', @trans('adminlte::adminlte.User_deleted_successfully'));
     }
 }

@@ -63,4 +63,5 @@ return [
     'users-read' => 'عرض',
     'users-update' => 'تحديث ',
     'users-delete' => 'حذف ',
+    'User_deleted_successfully'=> 'تم الحذف بنجاح'
 ];
