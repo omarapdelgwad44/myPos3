@@ -1,9 +1,15 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', @trans('adminlte::adminlte.dashboard'))
+@if (app()->getLocale() == 'ar')
+@section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.4.0/css/bootstrap-rtl.min.css">
 
+    <link rel="stylesheet" href="{{ asset('css/adminlte-rtl.css') }}">
+@stop
+@endif
 @section('content_header')
-    <h1>{{ __('Dashboard') }}</h1>
+    <h1>{{ @trans('adminlte::adminlte.dashboard') }}</h1>
 @stop
 
 @section('content')
@@ -11,7 +17,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">{{ __('Dashboard') }}</h3>
+                <h5 class="">{{ @trans('adminlte::adminlte.welcome') }}</h3>
             </div>
             <div class="card-body">
                 @if (session('status'))
@@ -20,7 +26,7 @@
                     </div>
                 @endif
 
-                {{ __('You are logged in!') }}
+                {{ @trans('adminlte::adminlte.You_are_logged_in') }}
             </div>
         </div>
     </div>

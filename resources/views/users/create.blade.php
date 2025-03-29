@@ -1,5 +1,12 @@
 @extends('adminlte::page')
 
+@if (app()->getLocale() == 'ar')
+@section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.4.0/css/bootstrap-rtl.min.css">
+    <link rel="stylesheet" href="{{ asset('css/adminlte-rtl.css') }}">
+@stop
+@endif
+
 @section('content')
 <div class="container">
     <h1>Create New User</h1>

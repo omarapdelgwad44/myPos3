@@ -1,0 +1,164 @@
+/* Align the navbar text to the left in RTL */
+.navbar-nav {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}
+
+/* Move the user dropdown and search icons to the left */
+.navbar-nav.ml-auto {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+}
+
+/* Ensure the brand logo is on the right side */
+.brand-link {
+    text-align: right;
+}
+
+/* Align dropdown menus correctly */
+.navbar-nav .dropdown-menu {
+    right: auto;
+    left: 0;
+    text-align: right;
+}
+
+/* Fix top bar alignment for small screens */
+@media (max-width: 768px) {
+    .navbar-nav {
+        margin-left: 0 !important;
+        margin-right: auto !important;
+    }
+}
+/* Basic RTL fixes for AdminLTE */
+body {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Ensure main wrapper and header/footer are aligned for RTL */
+.content-wrapper, .main-header, .main-footer {
+    margin-left: 0 !important;
+    margin-right: 250px;
+}
+
+@media (max-width: 767.98px) {
+    .content-wrapper, .main-header, .main-footer {
+        margin-right: 0 !important;
+    }
+}
+
+/* Adjust sidebar alignment */
+.main-sidebar {
+    right: 0;
+    left: auto;
+}
+
+.sidebar-mini.sidebar-collapse .main-sidebar {
+    width: 4.6rem;
+    overflow: visible;
+}
+
+/* Fix content wrapper for collapsed sidebar */
+.sidebar-mini.sidebar-collapse .content-wrapper,
+.sidebar-mini.sidebar-collapse .main-header, 
+.sidebar-mini.sidebar-collapse .main-footer {
+    margin-right: 4.6rem !important;
+    margin-left: 0 !important;
+}
+
+/* Sidebar width on collapse */
+.sidebar-mini.sidebar-collapse .main-sidebar {
+    width: 4.6rem !important;
+}
+
+/* Ensure sidebar toggle works correctly */
+.sidebar-collapse .content-wrapper, 
+.sidebar-collapse .main-header, 
+.sidebar-collapse .main-footer {
+    margin-right: 4.6rem !important;
+}
+
+/* Reverse padding and margins for RTL */
+.pr-1, .pr-2, .pr-3, .pr-4, .pr-5 {
+    padding-right: 0 !important;
+    padding-left: 0.25rem !important;
+}
+
+.pl-1, .pl-2, .pl-3, .pl-4, .pl-5 {
+    padding-left: 0 !important;
+    padding-right: 0.25rem !important;
+}
+
+.mr-1, .mr-2, .mr-3, .mr-4, .mr-5 {
+    margin-right: 0 !important;
+    margin-left: 0.25rem !important;
+}
+
+.ml-1, .ml-2, .ml-3, .ml-4, .ml-5 {
+    margin-left: 0 !important;
+    margin-right: 0.25rem !important;
+}
+
+/* Ensure nav links and icons align properly */
+.nav-sidebar  {
+    text-align: right;
+}
+
+/* Align icons in sidebar */
+.nav-sidebar .nav-item > .nav-link > .right {
+    left: auto;
+    right: 1rem;
+}
+
+.nav-sidebar .nav-item > .nav-link > i {
+    margin-left: 8px;
+    margin-right: 0;
+}
+
+/* Fix dropdown menus alignment */
+.dropdown-menu {
+    text-align: right;
+    right: 0;
+    left: auto;
+}
+
+/* AdminLTE Cards Fix */
+.card-header {
+    text-align: right;
+}
+
+/* Align form controls properly */
+.form-control {
+    text-align: right;
+}
+
+/* Fix data tables alignment */
+.table {
+    text-align: right;
+    direction: rtl;
+}
+
+/* Sidebar collapse button */
+.sidebar-toggle {
+    float: left;
+}
+
+/* Fix breadcrumb alignment */
+.breadcrumb {
+    padding-right: 0;
+}
+
+/* Fix modal alignment */
+.modal-content {
+    text-align: right;
+}
+
+/* Fix pagination alignment */
+.pagination {
+    justify-content: flex-start;
+}
+
+/* Adjust charts and graphs for RTL */
+.chartjs-render-monitor {
+    direction: ltr !important;
+}

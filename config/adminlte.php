@@ -158,6 +158,7 @@ return [
     'layout_fixed_navbar' => null,
     'layout_fixed_footer' => null,
     'layout_dark_mode' => null,
+    'layout_direction' => 'rtl',
 
     /*
     |--------------------------------------------------------------------------
@@ -300,6 +301,7 @@ return [
 
     'menu' => [
         // Navbar items:
+        
         [
             'type' => 'navbar-search',
             'text' => 'search',
@@ -321,6 +323,7 @@ return [
         //     'can' => 'manage-blog',
         // ],
         [
+            
             'text' => 'dashboard',
             'route' => 'dashboard.home',
             'icon' => 'fas fa-fw fa-tachometer-alt',
