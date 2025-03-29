@@ -162,3 +162,11 @@ body {
 .chartjs-render-monitor {
     direction: ltr !important;
 }
+.form-check-label {
+    margin-right: 25px;
+    margin-left: 0;
+}
+.form-check-input {
+    margin-right: 0rem;
+    margin-left: auto;
+}

@@ -26,4 +26,20 @@ return [
     'verify_request_another' => 'click here to request another',
     'confirm_password_message' => 'Please, confirm your password to continue.',
     'remember_me_hint' => 'Keep me authenticated indefinitely or until I manually logout',
+    'dashboard' => 'Dashboard',
+    'user_management' => 'User Management',
+    'id' => 'ID',
+    'name' => 'Name',
+    'email' => 'Email',
+    'actions' => 'Actions',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'add' => 'Add',
+    'search' => 'Search',
+    'search_by_name_or_email' => 'Search by name or email...',
+    'are_you_sure' => 'Are you sure?',
+    'welcome' => 'Welcome',
+    'You_are_logged_in' => 'You_are_logged_in!',
+
+
 ];
