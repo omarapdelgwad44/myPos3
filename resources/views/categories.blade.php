@@ -56,7 +56,7 @@
                     <td>
                     @if(auth()->user()->hasPermission('categories-update'))
                         <button type="button" class="btn btn-info btn-sm"
-                            onclick="openEditModal('{{ $category->id }}', '{{ $category->name }}', '{{ asset('images/categories/' . $category->image) }}')">
+                            onclick="openEditModal('{{ $category->id }}','{{ $category->getTranslation('name', 'en', false) }}', '{{ $category->getTranslation('name', 'ar', false) }}', '{{ asset('images/categories/' . $category->image) }}')">
                             <i class="fa fa-edit"></i> {{ trans('adminlte::adminlte.edit') }}
                         </button>
                     @endif

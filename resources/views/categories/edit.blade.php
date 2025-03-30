@@ -13,10 +13,18 @@
                     <input type="hidden" id="editCategoryId" name="category_id">
 
                     <div class="mb-3">
-                        <label for="editCategoryName" class="form-label">{{ trans('adminlte::adminlte.name') }}</label>
-                        <input type="text" class="form-control" id="editCategoryName" name="name" required>
-                    </div>
+    <label class="form-label">{{ trans('adminlte::adminlte.name') }}</label>
 
+    <div class="input-group mb-2">
+        <span class="input-group-text">🇺🇸 EN</span>
+        <input type="text" class="form-control" id="editCategoryNameEn" name="name[en]" required>
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-text">🇸🇦 AR</span>
+        <input type="text" class="form-control" id="editCategoryNameAr" name="name[ar]">
+    </div>
+</div>
                     <div class="mb-3">
                         <label for="editCategoryImage" class="form-label">{{ trans('adminlte::adminlte.image') }}</label>
                         <input type="file" class="form-control" id="editCategoryImage" name="image">
@@ -46,13 +54,19 @@
             preview.style.display = 'none';
         }
     });
-
-    function openEditModal(categoryId, categoryName, categoryImage) {
+    function openEditModal(categoryId, nameEn, nameAr, categoryImage) {
         document.getElementById('editCategoryId').value = categoryId;
-        document.getElementById('editCategoryName').value = categoryName;
+    // Handle translation object
+    if (typeof categoryName === 'object') {
+        document.getElementById('editCategoryNameEn').value = nameEn || '';
+        document.getElementById('editCategoryNameAr').value = nameAr || '';
+    } else {
+        // Fallback for single string
+        document.getElementById('editCategoryNameEn').value = categoryName;
+    }
 
         const preview = document.getElementById('editImagePreview');
-        if (categoryImage) {
+        if (categoryImage&&categoryImage!="http://127.0.0.1:8000/images/categories") {
             preview.src = categoryImage;
             preview.style.display = 'block';
         } else {
