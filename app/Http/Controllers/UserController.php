@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         $query = User::with('roles')->whereDoesntHave('roles', function ($query) {
             $query->where('name', 'super_admin');
-        });
+        })->where('id', '!=', auth()->id());
     
         if ($request->has('search')) {
             $search = $request->input('search');
