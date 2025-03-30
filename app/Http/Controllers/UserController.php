@@ -45,7 +45,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $permissions = Permission::all();
+
+        return view('users.create',compact('permissions'));
     }
 
     /**
@@ -67,7 +69,7 @@ class UserController extends Controller
         $manager = ImageManager::gd();
         $manager->read($image)
             ->resize(300, 300) 
-            ->save(public_path('images/' . $imageName));
+            ->save(public_path('images/users/' . $imageName));
             // dd(public_path('images/' . $imageName));
         $data['image'] = $imageName; 
     }
@@ -77,7 +79,7 @@ class UserController extends Controller
     if ($request->permissions) {
         $user->syncPermissions($request->permissions);
     }
-    return redirect()->route('dashboard.users.index')->with('success', 'User created successfully.');
+    return redirect()->route('dashboard.users.index')->with('success', @trans('adminlte::adminlte.added_successfully'));
 }
 
     /**
@@ -111,7 +113,7 @@ class UserController extends Controller
     
         $user->name = $request->name;
         $user->email = $request->email;
-    
+        $imageName= $user->image;
         if ($request->filled('password')) {
             $user->password = bcrypt($request->password);
         }
@@ -128,11 +130,11 @@ class UserController extends Controller
         $manager->read($image)
             ->resize(300, 300, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path('images/' . $imageName));
+            })->save(public_path('images/users/' . $imageName));
         
         // Delete the old image if it exists
-        if ($user->image && file_exists(public_path('images/' . $user->image))) {
-            unlink(public_path('images/' . $user->image));
+        if ($user->image && file_exists(public_path('images/users/' . $user->image))) {
+            unlink(public_path('images/users/' . $user->image));
         }
 
         $user->image = $imageName;
@@ -141,7 +143,7 @@ class UserController extends Controller
   
         $user->save();
     
-        return redirect()->route('dashboard.users.index')->with('success', 'User updated successfully.');
+        return redirect()->route('dashboard.users.index')->with('success', @trans('adminlte::adminlte.edited_successfully'));
     }
     
     /**
@@ -151,10 +153,10 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->permissions()->detach();
-        if ($user->image && file_exists(public_path('images/' . $user->image))) {
-            unlink(public_path('images/' . $user->image));
+        if ($user->image && file_exists(public_path('images/users/' . $user->image))) {
+            unlink(public_path('images/users/' . $user->image));
         }
         User :: destroy($id);
-        return redirect()->route('dashboard.users.index')->with('success', @trans('adminlte::adminlte.User_deleted_successfully'));
+        return redirect()->route('dashboard.users.index')->with('success', @trans('adminlte::adminlte.deleted_successfully'));
     }
 }

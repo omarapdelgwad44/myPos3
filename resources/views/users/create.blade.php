@@ -53,30 +53,55 @@
             <label for="password_confirmation" class="form-label">{{@trans('adminlte::adminlte.confirm_password')}}</label>
             <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required minlength="8">
         </div>
-
         <div class="card">
             <div class="card-header d-flex p-0">
-                <h3 class="card-title p-3">{{@trans('adminlte::adminlte.Permissions')}}</h3>
+                <h3 class="card-title p-3">{{ __('adminlte::adminlte.permissions') }}</h3>
             </div>
-            <div class="card-body">
-                <div class="form-check">
-                    <input type="checkbox" name="permissions[]" value="users-create" class="form-check-input" id="create">
-                    <label class="form-check-label" for="create">{{@trans('adminlte::adminlte.create')}}</label>
+        @if(isset($permissions) && $permissions->isNotEmpty())
+            @php
+                $chunks = $permissions->chunk(4); 
+            @endphp
+            <ul class="nav nav-tabs mt-3" id="permissionsTab" role="tablist">
+                @foreach($chunks as $index => $chunk)
+                    <li class="nav-item">
+                        <a class="nav-link {{ $index === 0 ? 'active' : '' }}" id="permissions-tab-link-{{ $index }}" data-toggle="tab" href="#permissions-tab-{{ $index }}" role="tab">
+                            {{ $index === 0 ? __('adminlte::adminlte.users') : __('adminlte::adminlte.categories') }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        @else
+            <p class="text-muted">{{ @trans('adminlte::adminlte.no_permissions_available') }}</p>
+        @endif
+    <div class="tab-content mt-3">
+            @php
+                $chunks = $permissions->chunk(4);
+                $names=['create','read','update','delete'];
+                $i=0;
+            @endphp
+            @foreach($chunks as $index => $chunk)
+                <div class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}" id="permissions-tab-{{ $index }}" role="tabpanel">
+                    <div class="card">
+                        <div class="card-body">
+                            @foreach($chunk as $permission)
+                                <div class="form-check">
+                                    <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" 
+                                           class="form-check-input" id="permission-{{ $permission->id }}"
+                                           {{ in_array($permission->id, old('permissions', [])) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="permission-{{ $permission->id }}">
+                                        {{ __('adminlte::adminlte.' . $names[$i]) }}
+                                        @php $i++;
+                                        if($i==4)$i=0;
+                                        @endphp
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
-                <div class="form-check">
-                    <input type="checkbox" name="permissions[]" value="users-read" class="form-check-input" id="read">
-                    <label class="form-check-label" for="read">{{@trans('adminlte::adminlte.read')}}</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" name="permissions[]" value="users-update" class="form-check-input" id="update">
-                    <label class="form-check-label" for="update">{{@trans('adminlte::adminlte.edit')}}</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" name="permissions[]" value="users-delete" class="form-check-input" id="delete">
-                    <label class="form-check-label" for="delete">{{@trans('adminlte::adminlte.delete')}}</label>
-                </div>
-            </div>
-        </div>
+            @endforeach
+    </div>
+    </div>
 
         <div class="mt-3">
             <button type="submit" class="btn btn-success">{{@trans('adminlte::adminlte.create_user')}}</button>

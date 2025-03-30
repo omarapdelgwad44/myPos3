@@ -59,9 +59,15 @@ return [
     'permissions' => 'الصلاحيات',
     'update_user' => 'تحديث المستخدم',
     'cancel' => 'إلغاء',
-    'users-create' => 'إنشاء',
-    'users-read' => 'عرض',
-    'users-update' => 'تحديث ',
-    'users-delete' => 'حذف ',
-    'User_deleted_successfully'=> 'تم الحذف بنجاح'
+    'create' => 'إنشاء',
+    'read' => 'عرض',
+    'update' => 'تحديث ',
+    'delete' => 'حذف ',
+    'deleted_successfully'=> 'تم الحذف بنجاح',
+    'edited_successfully'=> 'تم التعديل بنجاح',
+    'added_successfully'=> 'تم الاضافه بنجاح'
+    ,'add_category'=>'إضافه تصنيف'
+    ,'save'=>'حفظ',
+    'category_management'=>'إداره التصنيفات',
+    'categories'=>'التصنيفات',
 ];

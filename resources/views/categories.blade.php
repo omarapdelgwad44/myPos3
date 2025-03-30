@@ -9,22 +9,22 @@
 
 @section('content')
 <div class="container">
-    <h1>{{ @trans('adminlte::adminlte.user_management') }}</h1>
+    <h1>{{ @trans('adminlte::adminlte.category_management') }}</h1>
     
     <div class="row mb-3">
         <!-- شريط البحث -->
-        <form action="{{ route('dashboard.users.index') }}" method="GET" class="col-4 d-flex">
+        <form action="{{ route('dashboard.categories.index') }}" method="GET" class="col-4 d-flex">
             <input type="text" name="search" class="form-control ms-2" placeholder="{{ @trans('adminlte::adminlte.search_by_name_or_email') }}" value="{{ request('search') }}">
             <button type="submit" class="btn btn-primary d-flex align-items-center justify-content-center" style="width: 100px;">
                 <i class="fa fa-search ms-1"></i> {{ @trans('adminlte::adminlte.search') }}
             </button>
         </form>
 
-        @if(auth()->user()->hasPermission('users-create'))
+        @if(auth()->user()->hasPermission('categories-create'))
             <div class="col-4 text-start">
-                <a href="{{ route('dashboard.users.create') }}" class="btn btn-success d-flex align-items-center justify-content-center" style="width: 100px;">
+                <button type="button" class="btn btn-success d-flex align-items-center justify-content-center" style="width: 100px;" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
                     <i class="fa fa-plus ms-1"></i> {{ @trans('adminlte::adminlte.add') }}
-                </a>
+                </button>
             </div>
         @endif
     </div>
@@ -41,29 +41,29 @@
                 <th>{{ @trans('adminlte::adminlte.id') }}</th>
                 <th>{{ @trans('adminlte::adminlte.image') }}</th>
                 <th>{{ @trans('adminlte::adminlte.name') }}</th>
-                <th>{{ @trans('adminlte::adminlte.email') }}</th>
                 <th>{{ @trans('adminlte::adminlte.actions') }}</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($users as $user)
+            @foreach($categories as $category)
                 <tr>
-                    <td>{{ $user->id }}</td>
+                    <td>{{ $category->id }}</td>
                     <td>
-                    <img src="{{ $user->image ? asset('images/users/' . $user->image) : asset('images/default-avatar.png') }}" 
-                         alt="User Image" class="img-thumbnail" width="50" height="50">
+                    <img src="{{ $category->image ? asset('images/categories/' . $category->image) : asset('images/default-avatar.png') }}" 
+                         alt="category Image" class="img-thumbnail" width="50" height="50">
                 </td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
+                    <td>{{ $category->name }}</td>
                     <td>
-                        @if(auth()->user()->hasPermission('users-update'))
-                            <a href="{{ route('dashboard.users.edit', $user->id) }}" class="btn btn-info btn-sm">
-                                <i class="fa fa-edit"></i> {{ @trans('adminlte::adminlte.edit') }}
-                            </a>
-                        @endif
+                    @if(auth()->user()->hasPermission('categories-update'))
+                        <button type="button" class="btn btn-info btn-sm"
+                            onclick="openEditModal('{{ $category->id }}', '{{ $category->name }}', '{{ asset('images/categories/' . $category->image) }}')">
+                            <i class="fa fa-edit"></i> {{ trans('adminlte::adminlte.edit') }}
+                        </button>
+                    @endif
 
-                        @if(auth()->user()->hasPermission('users-delete') && $user->id != auth()->user()->id)
-                            <form action="{{ route('dashboard.users.destroy', $user->id) }}" method="POST" style="display:inline-block;">
+
+                        @if(auth()->user()->hasPermission('categories-delete'))
+                            <form action="{{ route('dashboard.categories.destroy', $category->id) }}" method="POST" style="display:inline-block;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{{ @trans('adminlte::adminlte.are_you_sure') }}')">
@@ -78,7 +78,11 @@
     </table>
 
     <div class="d-flex justify-content-center mt-3">
-        {{ $users->appends(request()->query())->links('pagination::bootstrap-5') }}
+        {{ $categories->appends(request()->query())->links('pagination::bootstrap-5') }}
     </div>
 </div>
+@extends('categories.create')
+@extends('categories.edit')
 @endsection
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+

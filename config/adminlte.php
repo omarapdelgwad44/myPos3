@@ -334,6 +334,12 @@ return [
             'icon' => 'fas fa-fw fa-users',
             'can' => 'users-read',
         ],
+        [
+            'text' => 'categories',
+            'route' => 'dashboard.categories.index',
+            'icon' => 'fas fa-fw fa-box',
+            'can' => 'categories-read',
+        ],
         // ['header' => 'account_settings'],
         // [
         //     'text' => 'profile',
