@@ -9,10 +9,15 @@
                         <form action="{{ route('dashboard.categories.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="modal-body">
-                                <div class="mb-3">
-                                    <label for="categoryName" class="form-label">{{ @trans('adminlte::adminlte.name') }}</label>
-                                    <input type="text" class="form-control" id="categoryName" name="name" required>
-                                </div>
+                            <div class="mb-3">
+    <label for="categoryName" class="form-label">{{ @trans('adminlte::adminlte.name') }} (English)</label>
+    <input type="text" class="form-control" id="categoryName" name="name[en]" required>
+</div>
+<div class="mb-3">
+    <label for="categoryNameAr" class="form-label">{{ @trans('adminlte::adminlte.name') }} (Arabic)</label>
+    <input type="text" class="form-control" id="categoryNameAr" name="name[ar]" required>
+</div>
+<!-- Add more languages as needed -->
                                 <div class="mb-3">
                                     <label for="categoryImage" class="form-label">{{ @trans('adminlte::adminlte.image') }}</label>
                                     <input type="file" class="form-control" id="categoryImage" name="image">

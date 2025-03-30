@@ -48,10 +48,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+    
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|array', // Expecting an array of translations
+            'name.*' => 'string|max:255', // Ensure each language is a string
             'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048'
         ]);  
+        
     
         $data = $request->except('image'); 
         if ($request->hasFile('image')) {
@@ -64,8 +67,11 @@ class CategoryController extends Controller
                 // dd(public_path('images/' . $imageName));
             $data['image'] = $imageName; 
         }
-        $category = Category::create($data); 
-    
+        $category = new Category();
+        $category->setTranslations('name', $request->name); 
+        $category->image = $data['image'] ?? null;
+        $category->save();
+            
         return redirect()->route('dashboard.categories.index')->with('success', @trans('adminlte::adminlte.added_successfully'));
     }
 
@@ -90,12 +96,15 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = category::findOrFail($id);
+        $category = Category::findOrFail($id);
     
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|array',
+            'name.*' => 'string|max:255',
         ]);
     
+        $category->setTranslations('name', $request->name);
+        
         $category->name = $request->name;
         $imageName=$category->image;
     
