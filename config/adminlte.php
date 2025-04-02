@@ -340,6 +340,12 @@ return [
             'icon' => 'fas fa-fw fa-box',
             'can' => 'categories-read',
         ],
+        [
+            'text' => 'products',
+            'route' => 'dashboard.products.index',
+            'icon' => 'fas fa-fw fa-box',
+            'can' => 'products-read',
+        ],
         // ['header' => 'account_settings'],
         // [
         //     'text' => 'profile',

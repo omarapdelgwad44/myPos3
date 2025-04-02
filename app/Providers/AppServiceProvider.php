@@ -28,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
         \Gate::define('categories-read', function ($user) {
             return $user->hasPermission('categories-read');
         });
+        \Gate::define('products-read', function ($user) {
+            return $user->hasPermission('products-read');
+        });
     }
     
 }

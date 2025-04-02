@@ -10,5 +10,6 @@ Route::group(
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard.home');
         Route::resource('users', App\Http\Controllers\UserController::class)->names('dashboard.users');
         Route::resource('categories', App\Http\Controllers\CategoryController::class)->names('dashboard.categories');
+        Route::resource('products', App\Http\Controllers\productController::class)->names('dashboard.products');
 
     });

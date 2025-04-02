@@ -70,4 +70,17 @@ return [
     ,'save'=>'حفظ',
     'category_management'=>'إداره التصنيفات',
     'categories'=>'التصنيفات',
+    'category'=>'التصنيف',
+    'choose_category'=>'اختر تصنيفا',
+    'name_ar' => 'الاسم بالعربية',
+    'name_en' => 'الاسم بالإنجليزية',
+    'description_ar' => 'الوصف بالعربية',
+    'description_en' => 'الوصف بالإنجليزية',
+    'purchase_price' => 'سعر الشراء',
+    'sale_price' => 'سعر البيع',
+    'stock' => 'المخزون',
+    'product_management'=>'إداره المنتجات',
+    'search_by_name' => 'ابحث بالاسم ...',
+    'create_product'=>'إنشاء منتج'
+
 ];

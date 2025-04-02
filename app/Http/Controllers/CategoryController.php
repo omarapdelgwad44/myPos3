@@ -6,8 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Storage;
-
-
+use CodeZero\UniqueTranslation\UniqueTranslationRule;
 class CategoryController extends Controller
 {
     public function __construct()
@@ -51,11 +50,10 @@ class CategoryController extends Controller
     
         $request->validate([
             'name' => 'required|array', // Expecting an array of translations
-            'name.*' => 'string|max:255', // Ensure each language is a string
+            'name.*' => 'string|max:255|unique_translation:categories', // Ensure each language is a string
             'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048'
         ]);  
         
-    
         $data = $request->except('image'); 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -100,7 +98,7 @@ class CategoryController extends Controller
     
         $request->validate([
             'name' => 'required|array',
-            'name.*' => 'string|max:255',
+            'name.*' => 'string|max:255|unique_translation:categories',
         ]);
     
         $category->setTranslations('name', $request->name);

@@ -14,7 +14,7 @@
     <div class="row mb-3">
         <!-- شريط البحث -->
         <form action="{{ route('dashboard.categories.index') }}" method="GET" class="col-4 d-flex">
-            <input type="text" name="search" class="form-control ms-2" placeholder="{{ @trans('adminlte::adminlte.search_by_name_or_email') }}" value="{{ request('search') }}">
+            <input type="text" name="search" class="form-control ms-2" placeholder="{{ @trans('adminlte::adminlte.search_by_name') }}" value="{{ request('search') }}">
             <button type="submit" class="btn btn-primary d-flex align-items-center justify-content-center" style="width: 100px;">
                 <i class="fa fa-search ms-1"></i> {{ @trans('adminlte::adminlte.search') }}
             </button>
