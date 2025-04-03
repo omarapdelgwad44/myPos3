@@ -81,6 +81,7 @@ return [
     'stock' => 'المخزون',
     'product_management'=>'إداره المنتجات',
     'search_by_name' => 'ابحث بالاسم ...',
-    'create_product'=>'إنشاء منتج'
+    'create_product'=>'إنشاء منتج',
+    'products'=>'المنتجات'
 
 ];

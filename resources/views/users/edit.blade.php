@@ -78,7 +78,7 @@
                     @foreach($chunks as $index => $chunk)
                         <li class="nav-item">
                             <a class="nav-link {{ $index === 0 ? 'active' : '' }}" id="permissions-tab-link-{{ $index }}" data-toggle="tab" href="#permissions-tab-{{ $index }}" role="tab">
-                            {{ $index === 0 ? __('adminlte::adminlte.users') : __('adminlte::adminlte.categories') }}
+                            {{ $index === 0 ? __('adminlte::adminlte.users') : ($index === 1 ? __('adminlte::adminlte.categories') : __('adminlte::adminlte.products')) }}
                             </a>
                         </li>
                     @endforeach
