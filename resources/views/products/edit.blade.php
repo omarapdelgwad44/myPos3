@@ -45,6 +45,21 @@
             <textarea name="description[en]" id="description_en" class="form-control" required>{{ old('description.en', $product->getTranslation('description', 'en')) }}</textarea>
         </div>
 
+        <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+        <script>
+        ClassicEditor
+            .create(document.querySelector('#description_ar'))
+            .catch(error => {
+            console.error(error);
+            });
+
+        ClassicEditor
+            .create(document.querySelector('#description_en'))
+            .catch(error => {
+            console.error(error);
+            });
+        </script>
+
         <div class="mb-3">
             <label for="category" class="form-label">{{ @trans('adminlte::adminlte.category') }}:</label>
             <select name="category_id" id="category" class="form-control" required>

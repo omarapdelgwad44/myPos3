@@ -21,17 +21,20 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-    
+    //    dd($request->all());
         $query = Product::query();
 
         if ($request->has('search')) {
             $search = $request->input('search');
             $query->where('name', 'like', "%{$search}%");
         }
-        
+        if ($request->has('category_id')) {
+            $categoryId = $request->input('category_id');
+            $query->where('category_id', $categoryId);
+        }
         $products = $query->paginate(10);
-        
-        return view('products', compact('products'));
+        $categories = Category::all();
+        return view('products', compact('products', 'categories'));
         
     }
 
@@ -49,7 +52,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
         $request->validate([
             'name' => 'required|array', 
             'name.*' => 'string|max:255|unique_translation:products', 
@@ -66,9 +68,7 @@ class ProductController extends Controller
             $image->move(public_path('images/products'), $imageName);
             $data['image'] = $imageName;
         }
-        if ($request->hasFile('image')) {
-          
-        }
+
         Product::create($data);
         return redirect()->route('dashboard.products.index')->with('success', @trans('adminlte::adminlte.added_successfully'));
 

@@ -35,13 +35,30 @@
 
         <div class="mb-3">
             <label for="description_ar" class="form-label">{{ @trans('adminlte::adminlte.description_ar') }}:</label>
-            <textarea name="description[ar]" id="description_ar" class="form-control" required>{{ old('description.ar') }}</textarea>
+            <textarea name="description[ar]" id="description_ar" class="form-control" >{{ old('description.ar') }}</textarea>
         </div>
 
         <div class="mb-3">
             <label for="description_en" class="form-label">{{ @trans('adminlte::adminlte.description_en') }}:</label>
-            <textarea name="description[en]" id="description_en" class="form-control" required>{{ old('description.en') }}</textarea>
+            <textarea name="description[en]" id="description_en" class="form-control" >{{ old('description.en') }}</textarea>
         </div>
+
+        <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                ClassicEditor
+                    .create(document.querySelector('#description_ar'))
+                    .catch(error => {
+                        console.error(error);
+                    });
+        
+                ClassicEditor
+                    .create(document.querySelector('#description_en'))
+                    .catch(error => {
+                        console.error(error);
+                    });
+            });
+        </script>
 
         <div class="mb-3">
             <label for="category" class="form-label">{{ @trans('adminlte::adminlte.category') }}:</label>

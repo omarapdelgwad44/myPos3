@@ -19,7 +19,20 @@
                 <i class="fa fa-search ms-1"></i> {{ @trans('adminlte::adminlte.search') }}
             </button>
         </form>
-
+        <!-- Category Filter -->
+        <form action="{{ route('dashboard.products.index') }}" method="GET" class="col-4 d-flex">
+            <select name="category_id" class="form-control ms-2">
+            <option value="">{{ @trans('adminlte::adminlte.categories') }}</option>
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                {{ $category->name }}
+                </option>
+            @endforeach
+            </select>
+            <button type="submit" class="btn btn-primary d-flex align-items-center justify-content-center" style="width: 100px;">
+            <i class="fa fa-filter ms-1"></i> {{ @trans('adminlte::adminlte.search') }}
+            </button>
+        </form>
         @if(auth()->user()->hasPermission('products-create'))
             <div class="col-4 text-start">
                 <a href="{{ route('dashboard.products.create') }}" class="btn btn-success d-flex align-items-center justify-content-center" style="width: 100px;">
@@ -60,8 +73,8 @@
                 </td>
                     <td>{{ $product->getTranslation('name', 'ar') }}</td>
                     <td>{{ $product->getTranslation('name', 'en') }}</td>
-                    <td>{{ $product->getTranslation('description', 'ar') }}</td>
-                    <td>{{ $product->getTranslation('description', 'en') }}</td>
+                    <td>{!! $product->getTranslation('description', 'ar') !!}</td>
+                    <td>{!! $product->getTranslation('description', 'en') !!}</td>
                     <td>{{ $product->purchase_price }}</td>
                     <td>{{ $product->sale_price }}</td>
                     <td>{{ $product->stock }}</td>

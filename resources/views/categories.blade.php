@@ -41,6 +41,7 @@
                 <th>{{ @trans('adminlte::adminlte.id') }}</th>
                 <th>{{ @trans('adminlte::adminlte.image') }}</th>
                 <th>{{ @trans('adminlte::adminlte.name') }}</th>
+                <th>{{ @trans('adminlte::adminlte.products') }}</th>
                 <th>{{ @trans('adminlte::adminlte.actions') }}</th>
             </tr>
         </thead>
@@ -53,6 +54,11 @@
                          alt="category Image" class="img-thumbnail" width="50" height="50">
                 </td>
                     <td>{{ $category->name }}</td>
+                    <td>
+                        <a href="{{ route('dashboard.products.index', ['category_id' => $category->id]) }}" class="btn btn-primary btn-sm">
+                            {{ $category->products->count() }}
+                        </a>
+                    </td>
                     <td>
                     @if(auth()->user()->hasPermission('categories-update'))
                         <button type="button" class="btn btn-info btn-sm"
