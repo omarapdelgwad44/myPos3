@@ -47,7 +47,6 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-    
         $request->validate([
             'name' => 'required|array', // Expecting an array of translations
             'name.*' => 'string|max:255|unique_translation:categories', // Ensure each language is a string
@@ -58,18 +57,10 @@ class CategoryController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->extension();
-            $manager = ImageManager::gd();
-            $manager->read($image)
-                ->resize(300, 300) 
-                ->save(public_path('images/categories/' . $imageName));
-                // dd(public_path('images/' . $imageName));
+            $image->move(public_path('images/categories'), $imageName);
             $data['image'] = $imageName; 
         }
-        $category = new Category();
-        $category->setTranslations('name', $request->name); 
-        $category->image = $data['image'] ?? null;
-        $category->save();
-            
+        Category::create($data);     
         return redirect()->route('dashboard.categories.index')->with('success', @trans('adminlte::adminlte.added_successfully'));
     }
 
@@ -95,39 +86,23 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $category = Category::findOrFail($id);
-    
         $request->validate([
             'name' => 'required|array',
-            'name.*' => 'string|max:255|unique_translation:categories',
+            'name.*' => 'string|max:255|unique_translation:categories,name,' . $category->id, 
         ]);
-    
-        $category->setTranslations('name', $request->name);
-        
-        $category->name = $request->name;
-        $imageName=$category->image;
-    
-       
+        $data = $request->except('image');
     if ($request->hasFile('image')) {
-        $image = $request->file('image');
-        $imageName = time() . '.' . $image->extension();
-        $manager = ImageManager::gd();
-        $manager->read($image)
-            ->resize(300, 300, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path('images/categories/' . $imageName));
-        
-        // Delete the old image if it exists
         if ($category->image && file_exists(public_path('images/categories/' . $category->image))) {
             unlink(public_path('images/categories/' . $category->image));
         }
+        $image = $request->file('image');
+        $imageName = time() . '.' . $image->extension();
+        $image->move(public_path('images/categories'), $imageName);
         // dd($imageName);
-
         $category->image = $imageName;
-    }
         $data['image'] = $imageName; 
-  
-        $category->save();
-    
+    }
+        $category->update($data);    
         return redirect()->route('dashboard.categories.index')->with('success', @trans('adminlte::adminlte.edited_successfully'));
 
     }

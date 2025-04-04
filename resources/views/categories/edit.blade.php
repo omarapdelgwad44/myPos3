@@ -10,7 +10,7 @@
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
-                    <input type="hidden" id="editCategoryId" name="category_id">
+                    <input type="hidden" id="editCategoryId" name="id">
 
                     <div class="mb-3">
     <label class="form-label">{{ trans('adminlte::adminlte.name') }}</label>
