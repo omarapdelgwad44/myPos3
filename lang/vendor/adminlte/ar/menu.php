@@ -5,5 +5,6 @@ return [
     'search'=>'بحث',
     'categories'=>'التصنيفات',
     'products'=>'المنتجات'
+    ,'clints'=>'العملاء',
 
 ];

@@ -82,6 +82,10 @@ return [
     'product_management'=>'إداره المنتجات',
     'search_by_name' => 'ابحث بالاسم ...',
     'create_product'=>'إنشاء منتج',
-    'products'=>'المنتجات'
+    'products'=>'المنتجات',
+    'phone'=>'رقم الهاتف',
+    'address'=>'العنوان',
+    'clint_management'=>'إداره العملاء',
+
 
 ];

@@ -335,6 +335,12 @@ return [
             'can' => 'users-read',
         ],
         [
+            'text' => 'clints',
+            'route' => 'dashboard.clints.index',
+            'icon' => 'fas fa-fw fa-users',
+            'can' => 'clints-read',
+        ],
+        [
             'text' => 'categories',
             'route' => 'dashboard.categories.index',
             'icon' => 'fas fa-fw fa-box',
