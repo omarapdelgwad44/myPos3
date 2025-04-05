@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Clint;
+use App\Models\Order;
 
 class OrderCreate extends Component
 {
@@ -32,7 +33,9 @@ class OrderCreate extends Component
         if (!$product) return;
 
         foreach ($this->orderItems as $item) {
-            if ($item['id'] == $product->id) return; // لا تضف المنتج مرتين
+            if ($item['id'] == $product->id) {
+                return;
+            }
         }
 
         $this->orderItems[] = [
@@ -60,10 +63,7 @@ class OrderCreate extends Component
     }
 
     public function save()
-    {
-        // هنا قم بحفظ الطلب في قاعدة البيانات
-        // مثال (ستحتاج تعديل حسب بنية قاعدة بياناتك):
-        /*
+    {        
         $order = Order::create([
             'clint_id' => $this->clint->id,
             'total' => $this->total,
@@ -73,12 +73,14 @@ class OrderCreate extends Component
             $order->products()->attach($item['id'], [
                 'quantity' => $item['quantity'],
                 'price' => $item['price'],
+                'total' => $item['price'] * $item['quantity'],
             ]);
         }
-        */
 
-        session()->flash('success', 'تم حفظ الطلب بنجاح');
         $this->orderItems = [];
+        $this->selectedCategory = null;
+        $this->total=null;
+
     }
 
     public function render()

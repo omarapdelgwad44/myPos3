@@ -22,9 +22,7 @@
                             <td>{{ $item['price'] }}</td>
                             <td>
                                 <input type="number" class="form-control" min="1"
-                                    wire:model.live="orderItems.{{ $index }}.quantity" max="{{ $item['stock'] }}"
-                                    wire:change="updateQuantity({{ $index }}, $event.target.value)">
-                            </td>
+                                    wire:model.live="orderItems.{{ $index }}.quantity" max="{{ $item['stock'] }}">                            </td>
                             <td>
                                 <button class="btn btn-danger" wire:click="removeProduct({{ $item['id'] }})">إزالة</button>
                             </td>
@@ -32,9 +30,12 @@
                         @endforeach
                     </tbody>
                 </table>
-
-                <button class="btn btn-success" wire:click="save">حفظ</button>
-                <div class="mt-2">الإجمالي: {{ number_format($this->total, 2) }}</div>
+@if($orderItems)
+                    <tr>
+                    <button class="btn btn-success" wire:click="save">حفظ</button>
+                    <div class="mt-2">الإجمالي: {{ number_format($this->total, 2) }}</div>                    
+                </tr>
+@endif
             </div>
         </div>
     </div>

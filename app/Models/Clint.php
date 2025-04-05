@@ -11,5 +11,9 @@ class Clint extends Model
 
     public $translatable = ['name'];
     public $guarded = [];
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 
 }
