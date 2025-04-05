@@ -28,7 +28,7 @@
             </div>
         @endif
     </div>
-
+    <td>
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -70,6 +70,10 @@
                                 </button>
                             </form>
                         @endif
+                        <a href="{{ route('clints.orders.create', $clint->id) }}" class="btn btn-success btn-sm">
+        <i class="fa fa-plus"></i> Order
+    </a>
+
                     </td>
                 </tr>
             @endforeach

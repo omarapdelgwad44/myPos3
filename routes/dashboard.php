@@ -12,6 +12,9 @@ Route::group(
         Route::resource('categories', App\Http\Controllers\CategoryController::class)->names('dashboard.categories');
         Route::resource('products', App\Http\Controllers\productController::class)->names('dashboard.products');
         Route::resource('clints', App\Http\Controllers\clintController::class)->names('dashboard.clints');
+        Route::get('clints/{clint}/orders/create', App\Livewire\OrderCreate::class)->name('clints.orders.create');
 
-
+        Livewire::setUpdateRoute(function ($handle) {
+            return Route::post('/custom/livewire/update', $handle);
+        });
     });
