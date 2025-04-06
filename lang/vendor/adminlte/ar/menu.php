@@ -4,7 +4,6 @@ return [
     'users' => 'المستخدمين',
     'search'=>'بحث',
     'categories'=>'التصنيفات',
-    'products'=>'المنتجات'
-    ,'clints'=>'العملاء',
-
+    'products'=>'المنتجات',
+    'clints'=>'العملاء',
 ];

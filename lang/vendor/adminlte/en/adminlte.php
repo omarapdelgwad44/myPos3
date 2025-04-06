@@ -86,5 +86,11 @@ return [
     'phone'=> 'Phone',
     'address'=> 'Address',
     'clint_management' => 'Clint Management',
+    'clint' => 'Clint',
+    'quantity'=>'Quantity',
+    'order_management'=>'Order Management',
+    'total'=>'Total',
+    'order_details'=>' Order Details',
+    'View_order'=>' View Order',
     
 ];
