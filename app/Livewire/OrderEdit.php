@@ -101,6 +101,7 @@ class OrderEdit extends Component
         ]);
 
         session()->flash('message', 'تم تحديث الطلب بنجاح');
+        return redirect()->route('dashboard.orders.index');
     }
 
     public function render()

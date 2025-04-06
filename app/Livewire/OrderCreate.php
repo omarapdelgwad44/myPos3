@@ -88,7 +88,8 @@ class OrderCreate extends Component
         $this->orderItems = [];
         $this->selectedCategory = null;
         $this->total=null;
-        
+        session()->flash('message', 'Order created successfully.');
+        return redirect()->route('dashboard.orders.index');        
 
     }
 

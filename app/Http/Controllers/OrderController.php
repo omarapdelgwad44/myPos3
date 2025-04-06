@@ -21,13 +21,17 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $query = Order::with('clint')->latest();
+
         $query->when($request->filled('clint_id'), function ($q) use ($request) {
-        $q->where('clint_id', $request->input('clint_id'));
-    })->when($request->filled('product_id'), function ($q) use ($request) {
-        $q->whereHas('products', function ($subQuery) use ($request) {
-            $subQuery->where('product_id', $request->input('product_id'));
+            $q->whereIn('clint_id', $request->input('clint_id', []));
         });
-     });
+        
+        $query->when($request->filled('product_id'), function ($q) use ($request) {
+            $q->whereHas('products', function ($subQuery) use ($request) {
+                $subQuery->whereIn('product_id', $request->input('product_id', []));
+            });
+        });
+        
              
         $orders = $query->paginate(10);
         // dd($orders);
