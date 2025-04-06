@@ -14,6 +14,7 @@ class OrderCreate extends Component
     public $orderItems = [];
     public $clint;
     public $categories = [];
+    
 
     public function mount(Clint $clint)
     {
@@ -34,11 +35,13 @@ class OrderCreate extends Component
 
         foreach ($this->orderItems as $item) {
             if ($item['id'] == $product->id) {
+                $this->orderItems[$item['this_id']]['quantity'] += 1;
                 return;
             }
         }
 
         $this->orderItems[] = [
+            'this_id' => count($this->orderItems),
             'id' => $product->id,
             'name' => $product->name,
             'price' => $product->sale_price,
@@ -50,11 +53,13 @@ class OrderCreate extends Component
     public function removeProduct($productId)
     {
         $this->orderItems = array_filter($this->orderItems, fn($item) => $item['id'] !== $productId);
+
     }
 
     public function updateQuantity($index, $quantity)
     {
         $this->orderItems[$index]['quantity'] = (int) $quantity;
+        
     }
 
     public function getTotalProperty()
@@ -75,11 +80,15 @@ class OrderCreate extends Component
                 'price' => $item['price'],
                 'total' => $item['price'] * $item['quantity'],
             ]);
+            $product = Product::find($item['id']);
+            $product->stock -= $item['quantity'];
+            $product->save();
         }
 
         $this->orderItems = [];
         $this->selectedCategory = null;
         $this->total=null;
+        
 
     }
 
