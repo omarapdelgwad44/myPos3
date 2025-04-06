@@ -74,6 +74,9 @@
                                 <i class="fa fa-eye"></i> {{ @trans('adminlte::adminlte.View_order') }}
                             </a>
                         @endif
+                        <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-success btn-sm">
+        <i class="fa fa-plus"></i> Order
+    </a>
                         @if(auth()->user()->hasPermission('orders-delete'))
                             <form action="{{ route('dashboard.orders.destroy', $order->id) }}" method="POST" style="display:inline-block;">
                                 @csrf

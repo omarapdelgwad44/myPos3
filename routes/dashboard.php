@@ -19,3 +19,5 @@ Route::group(
             return Route::post('/custom/livewire/update', $handle);
         });
     });
+    Route::get('orders/{order}/edit', App\Livewire\OrderEdit::class)->name('orders.edit');
+
