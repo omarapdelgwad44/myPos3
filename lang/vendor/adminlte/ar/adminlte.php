@@ -86,6 +86,12 @@ return [
     'phone'=>'رقم الهاتف',
     'address'=>'العنوان',
     'clint_management'=>'إداره العملاء',
+    'clint' => 'العميل',
+    'quantity'=>'الكمية',
+    'order_management'=>'إداره الطلبات',
+    'total'=>'الإجمالي',
+    'order_details'=>'تفاصيل الطلب',
+    'View_order'=>'عرض الطلب',
 
 
 ];

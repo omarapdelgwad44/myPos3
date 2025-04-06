@@ -347,6 +347,12 @@ return [
             'can' => 'categories-read',
         ],
         [
+            'text' => 'orders',
+            'route' => 'dashboard.orders.index',
+            'icon' => 'fas fa-fw fa-box',
+            'can' => 'orders-read',
+        ],
+        [
             'text' => 'products',
             'route' => 'dashboard.products.index',
             'icon' => 'fas fa-fw fa-box',
