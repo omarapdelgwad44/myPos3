@@ -26,6 +26,9 @@
                     <i class="fa fa-plus ms-1"></i> {{ @trans('adminlte::adminlte.add') }}
                 </a>
             </div>
+            <a href="{{ route('users.create') }}" class="btn btn-success btn-sm">
+        <i class="fa fa-plus"></i> Add User form wizard
+    </a>
         @endif
     </div>
 

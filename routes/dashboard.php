@@ -20,4 +20,5 @@ Route::group(
         });
     });
     Route::get('orders/{order}/edit', App\Livewire\OrderEdit::class)->name('orders.edit');
+    Route::get('users/create', App\Livewire\UserFormWizard::class)->name('users.create');
 
