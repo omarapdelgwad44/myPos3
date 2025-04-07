@@ -92,5 +92,6 @@ return [
     'total'=>'Total',
     'order_details'=>' Order Details',
     'View_order'=>' View Order',
+    'select_option'=>'Select Option',
     
 ];

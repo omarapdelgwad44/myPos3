@@ -92,6 +92,7 @@ return [
     'total'=>'الإجمالي',
     'order_details'=>'تفاصيل الطلب',
     'View_order'=>'عرض الطلب',
+    'select_option'=>'اختر ',
 
 
 ];

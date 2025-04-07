@@ -67,7 +67,6 @@
                 <th>{{ __('adminlte::adminlte.id') }}</th>
                 <th>{{ __('adminlte::adminlte.clint') }}</th>
                 <th>{{ __('adminlte::adminlte.total') }}</th>
-                <th>{{ __('adminlte::adminlte.address') }}</th>
                 <th>{{ __('adminlte::adminlte.actions') }}</th>
             </tr>
         </thead>
@@ -77,7 +76,6 @@
                     <td>{{ $order->id }}</td>
                     <td>{{ $order->clint->name }}</td>
                     <td>{{ $order->total }}</td>
-                    <td>{{ $order->address }}</td>
                     <td>
                         @if(auth()->user()->hasPermission('orders-read'))
                             <a href="{{ route('dashboard.orders.show', $order->id) }}" class="btn btn-info btn-sm">
@@ -86,7 +84,7 @@
                         @endif
 
                         <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-success btn-sm">
-                            <i class="fa fa-plus"></i> {{ __('adminlte::adminlte.edit') }}
+                            <i class="fa fa-edit"></i> {{ __('adminlte::adminlte.edit') }}
                         </a>
 
                         @if(auth()->user()->hasPermission('orders-delete'))
