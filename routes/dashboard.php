@@ -19,6 +19,13 @@ Route::group(
             return Route::post('/custom/livewire/update', $handle);
         });
     });
+    Route::group(
+        [
+            'prefix' => LaravelLocalization::setLocale() ,
+            'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'auth', ]
+        ], function(){ 
+    
     Route::get('orders/{order}/edit', App\Livewire\OrderEdit::class)->name('orders.edit');
     Route::get('users/create', App\Livewire\UserFormWizard::class)->name('users.create');
+        });
 

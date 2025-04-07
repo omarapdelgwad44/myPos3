@@ -93,6 +93,14 @@ return [
     'order_details'=>'تفاصيل الطلب',
     'View_order'=>'عرض الطلب',
     'select_option'=>'اختر ',
+    'basic_info'=>'المعلومات الأساسية',
+    'profile'=>'الملف الشخصي',
+    'security'=>'الأمان',
+    'create_new_user '=> 'إنشاء مستخدم جديد',
+    'next'=> 'التالي',
+    'back'=> 'السابق',
+    'user_permissions' => 'صلاحيات المستخدمين',
+    'permissions_selected' => 'الصلاحيات المحددة',
 
 
 ];

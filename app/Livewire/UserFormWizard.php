@@ -13,7 +13,9 @@ class UserFormWizard extends Component
     use WithFileUploads;
 
     public $step = 1;
+    public $totalSteps = 4;
 
+    
     public $name, $email, $password, $password_confirmation, $image, $imagePreview;
     public $permissions = [];
     public $allPermissions = [];

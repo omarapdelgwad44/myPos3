@@ -93,5 +93,12 @@ return [
     'order_details'=>' Order Details',
     'View_order'=>' View Order',
     'select_option'=>'Select Option',
+    'basic_info'=>'Basic Info',
+    'profile'=>'Profile',
+    'security'=>'Security',
+    'next' => 'Next',
+    'back' => 'Back',
+    'user_permissions' => 'User Permissions',
+    'permissions_selected' => 'Permissions Selected',
     
 ];
