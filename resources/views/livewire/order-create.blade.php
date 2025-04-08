@@ -95,12 +95,22 @@
                                 <input type="number" class="form-control" wire:model.live="taxRate" min="0">
                             </div>
                             <div class="mt-2">
-                                <strong>الضريبة:</strong> {{ number_format($this->totalTax, 2) }}
+                                <strong>الضريبة:</strong> {{ $this->totalTax }}
                             </div>
                             <div class="mt-2">
-                                <strong>الإجمالي مع الضريبة:</strong> {{ number_format($this->total + $this->totalTax, 2) }}
+                                <strong>الإجمالي مع الضريبة:</strong> {{ $this->total + $this->totalTax }}
                             </div>
                         @endif
+                    </div>
+                    <div class="mt-2">
+                        <strong>الخصم (%)</strong>
+                        <input type="number" class="form-control" wire:model.live="discountRate" min="0">
+                    </div>
+                    <div class="mt-2">
+                        <strong>الخصم:</strong> {{$this->totalDiscount }}
+                    </div>
+                    <div class="mt-2">
+                        <strong>الإجمالي بعد الخصم:</strong> {{ $this->total - $this->totalDiscount }}
                     </div>
                 @endif
             </div>

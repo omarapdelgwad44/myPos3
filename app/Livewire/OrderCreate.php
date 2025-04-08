@@ -18,7 +18,8 @@ class OrderCreate extends Component
     public $taxRate = 0;
     public $totalTax = 0;
     public $tax = 0;
-    
+    public $discountRate = 0;
+    public $totalDiscount = 0;
 
     public function mount(Clint $clint)
     {
@@ -54,12 +55,14 @@ class OrderCreate extends Component
             'tax' => ($this->taxRate/100)*$product->purchase_price,
         ];
         $this->updatedTaxRate();
+        $this->updatedDiscountRate();
     }
 
     public function removeProduct($productId)
     {
         $this->orderItems = array_filter($this->orderItems, fn($item) => $item['id'] !== $productId);
         $this->updatedTaxRate();
+        $this->updatedDiscountRate();
 
     }
 
@@ -82,10 +85,12 @@ class OrderCreate extends Component
     }
 
     public function save()
-    {        
+    {
         $order = Order::create([
             'clint_id' => $this->clint->id,
             'total' => $this->total,
+            'discount' => $this->totalDiscount,
+            'tax' => $this->totalTax,
         ]);
 
         foreach ($this->orderItems as $item) {
@@ -116,14 +121,24 @@ class OrderCreate extends Component
     public function updatedTaxRate()
     {
         $this->totalTax = 0;
-        foreach ($this->orderItems as $item) {
-            $this->totalTax += ($this->taxRate/100)*$item['quantity']*$item['price'];
+        if($this->taxRate != ''){
+            foreach ($this->orderItems as $item) {
+                $this->totalTax += ($this->taxRate/100)*$item['quantity']*$item['price'];
+            }
         }
     }
 
     public function updateCounter()
     {
         $this->updatedTaxRate();
+        $this->updatedDiscountRate();
+    }
+
+    public function updatedDiscountRate()
+    {
+        if($this->discountRate != ''){
+            $this->totalDiscount = ($this->discountRate/100)*$this->total;
+        }
     }
 
 }
