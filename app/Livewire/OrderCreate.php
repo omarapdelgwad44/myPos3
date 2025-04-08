@@ -14,6 +14,10 @@ class OrderCreate extends Component
     public $orderItems = [];
     public $clint;
     public $categories = [];
+    public $hasTax = false;
+    public $taxRate = 0;
+    public $totalTax = 0;
+    public $tax = 0;
     
 
     public function mount(Clint $clint)
@@ -35,24 +39,27 @@ class OrderCreate extends Component
 
         foreach ($this->orderItems as $item) {
             if ($item['id'] == $product->id) {
+                if ($item['quantity'] == $product->stock) return;
                 $this->orderItems[$item['this_id']]['quantity'] += 1;
                 return;
             }
         }
-
         $this->orderItems[] = [
             'this_id' => count($this->orderItems),
             'id' => $product->id,
             'name' => $product->name,
-            'price' => $product->sale_price,
+            'price' => $product->purchase_price,
             'quantity' => 1,
             'stock' => $product->stock,
+            'tax' => ($this->taxRate/100)*$product->purchase_price,
         ];
+        $this->updatedTaxRate();
     }
 
     public function removeProduct($productId)
     {
         $this->orderItems = array_filter($this->orderItems, fn($item) => $item['id'] !== $productId);
+        $this->updatedTaxRate();
 
     }
 
@@ -60,6 +67,13 @@ class OrderCreate extends Component
     {
         $this->orderItems[$index]['quantity'] = (int) $quantity;
         
+    }
+    public function updatedHasTax()
+    {
+        if (!$this->hasTax) {
+            $this->taxRate = 0;
+            $this->totalTax = 0;
+        }
     }
 
     public function getTotalProperty()
@@ -97,4 +111,19 @@ class OrderCreate extends Component
     {
         return view('livewire.order-create')->extends('adminlte::page')->section('content');
     }
+
+
+    public function updatedTaxRate()
+    {
+        $this->totalTax = 0;
+        foreach ($this->orderItems as $item) {
+            $this->totalTax += ($this->taxRate/100)*$item['quantity']*$item['price'];
+        }
+    }
+
+    public function updateCounter()
+    {
+        $this->updatedTaxRate();
+    }
+
 }

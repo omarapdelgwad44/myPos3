@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('clint_id');
             $table->foreign('clint_id')->references('id')->on('clints')->onDelete('cascade');
             $table->decimal('total', 8, 2);
+            $table->decimal('tax', 8, 2)->default(0.0);
             $table->timestamps();
         });
     }

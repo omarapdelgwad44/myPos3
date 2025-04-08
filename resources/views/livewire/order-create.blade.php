@@ -22,7 +22,10 @@
                             <td>{{ $item['price'] }}</td>
                             <td>
                                 <input type="number" class="form-control" min="1"
-                                    wire:model.live="orderItems.{{ $index }}.quantity" max="{{ $item['stock'] }}">                            </td>
+                                    wire:model="orderItems.{{ $index }}.quantity" 
+                                    wire:change="updateCounter"
+                                    max="{{ $item['stock'] }}">     
+                           </td>
                             <td>
                                 <button class="btn btn-danger" wire:click="removeProduct({{ $item['id'] }})">إزالة</button>
                             </td>
@@ -77,6 +80,29 @@
                         @endforeach
                     </tbody>
                 </table>
+                @if($this->total > 0)
+                    <div class="mt-3">
+                        <div class="form-group">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="hasTax" wire:model.live="hasTax">
+                                <label class="custom-control-label" for="hasTax">تفعيل الضريبة</label>
+                            </div>
+                        </div>
+
+                        @if($hasTax)
+                            <div class="form-group">
+                                <label>الضريبة (%)</label>
+                                <input type="number" class="form-control" wire:model.live="taxRate" min="0">
+                            </div>
+                            <div class="mt-2">
+                                <strong>الضريبة:</strong> {{ number_format($this->totalTax, 2) }}
+                            </div>
+                            <div class="mt-2">
+                                <strong>الإجمالي مع الضريبة:</strong> {{ number_format($this->total + $this->totalTax, 2) }}
+                            </div>
+                        @endif
+                    </div>
+                @endif
             </div>
         </div>
     </div>
