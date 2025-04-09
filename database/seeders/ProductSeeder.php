@@ -17,8 +17,9 @@ class ProductSeeder extends Seeder
             $product = new Product();
             $product->name = ['en' => 'Product' . $i, 'ar' => $i . 'منتج'];
             $product->description = ['en' => 'Description' . $i, 'ar' => $i . 'وصف'];
-            $product->sale_price = 100;
-            $product->purchase_price = 100;
+            $product->on_sale = rand(0, 1);
+            $product->sale_price = rand(100, 1000);
+            $product->purchase_price = rand(100, 1000);
             $product->category_id = rand(1, 3); // Assuming you have 3 categories
             $product->stock = 10;
             $product->save();

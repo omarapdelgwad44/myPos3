@@ -15,6 +15,7 @@ class OrderCreate extends Component
     public $clint;
     public $categories = [];
     public $hasTax = false;
+    public $hasDiscount = false;
     public $taxRate = 0;
     public $totalTax = 0;
     public $tax = 0;
@@ -36,6 +37,11 @@ class OrderCreate extends Component
     public function addProduct($productId)
     {
         $product = Product::find($productId);
+        if($product->on_sale){
+            $price = $product->sale_price;
+        }else{
+            $price = $product->purchase_price;
+        }
         if (!$product) return;
 
 
@@ -50,10 +56,10 @@ class OrderCreate extends Component
                 'this_id' => count($this->orderItems),
                 'id' => $product->id,
                 'name' => $product->name,
-                'price' => $product->purchase_price,
+                'price' => $price,
                 'quantity' => 1,
                 'stock' => $product->stock,
-                'tax' => ($this->taxRate/100)*$product->purchase_price,
+                'tax' => ($this->taxRate/100)*$price,
             ];
         }
         $this->updatedTaxRate();
@@ -78,6 +84,13 @@ class OrderCreate extends Component
         if (!$this->hasTax) {
             $this->taxRate = 0;
             $this->totalTax = 0;
+        }
+    }
+    public function updatedHasDiscount()
+    {
+        if (!$this->hasDiscount) {
+            $this->discountRate = 0;
+            $this->totalDiscount = 0;
         }
     }
 

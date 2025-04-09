@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('image')->nullable(); 
             $table->decimal('purchase_price', 8, 2);
             $table->decimal('sale_price', 8, 2);
+            $table->boolean('on_sale')->default(false);
             $table->integer('stock');
             $table->timestamps();
         });

@@ -61,6 +61,7 @@
                 <table class="table mt-3">
                     <thead>
                         <tr>
+                            <th>الصورة</th>
                             <th>المنتج</th>
                             <th>السعر</th>
                             <th>المخزون</th>
@@ -70,8 +71,15 @@
                     <tbody>
                         @foreach($this->products as $product)
                         <tr>
+                            <td><img src="{{ $product->image ? asset('images/products/' . $product->image) : asset('images/products/product-default.png') }}" 
+                            alt="User Image" class="img-thumbnail" width="50" height="50"></td>
                             <td>{{ $product->name }}</td>
-                            <td>{{ number_format($product->sale_price, 2) }}</td>
+                            @if($product->on_sale)
+                            <td><span class="text-success">Sale!</span> {{ number_format($product->sale_price, 2) }} <span class="text-muted"><del>{{ number_format($product->purchase_price, 2) }}</del></span></td>
+
+                            @else
+                            <td>{{ number_format($product->purchase_price, 2) }}</td>
+                            @endif
                             <td>{{ $product->stock }}</td>
                             <td>
                                 <button class="btn btn-primary" wire:click="addProduct({{ $product->id }})">إضافة</button>
@@ -88,6 +96,12 @@
                                 <label class="custom-control-label" for="hasTax">تفعيل الضريبة</label>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="hasDiscount" wire:model.live="hasDiscount">
+                                <label class="custom-control-label" for="hasDiscount">تفعيل الخصم</label>
+                            </div>
+                        </div>
 
                         @if($hasTax)
                             <div class="form-group">
@@ -102,6 +116,7 @@
                             </div>
                         @endif
                     </div>
+                    @if($hasDiscount)
                     <div class="mt-2">
                         <strong>الخصم (%)</strong>
                         <input type="number" class="form-control" wire:model.live="discountRate" min="0">
@@ -110,8 +125,9 @@
                         <strong>الخصم:</strong> {{$this->totalDiscount }}
                     </div>
                     <div class="mt-2">
-                        <strong>الإجمالي بعد الخصم:</strong> {{ $this->total - $this->totalDiscount }}
-                    </div>
+                            <strong>الإجمالي بعد الخصم:</strong> {{ $this->total - $this->totalDiscount }}
+                        </div>
+                    @endif
                 @endif
             </div>
         </div>
