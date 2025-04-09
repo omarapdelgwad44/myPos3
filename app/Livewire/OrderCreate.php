@@ -30,7 +30,7 @@ class OrderCreate extends Component
     public function getProductsProperty()
     {
         if (!$this->selectedCategory) return [];
-        return Product::where('category_id', $this->selectedCategory)->get();
+        return Product::where('category_id', $this->selectedCategory)->where('stock', '>', 0)->get();
     }
 
     public function addProduct($productId)
@@ -38,22 +38,24 @@ class OrderCreate extends Component
         $product = Product::find($productId);
         if (!$product) return;
 
-        foreach ($this->orderItems as $item) {
-            if ($item['id'] == $product->id) {
-                if ($item['quantity'] == $product->stock) return;
-                $this->orderItems[$item['this_id']]['quantity'] += 1;
-                return;
-            }
+
+        $existingItem = collect($this->orderItems)->first(fn($item) => $item['id'] == $productId);
+        if($existingItem){
+            if($existingItem['quantity'] < $product->stock){
+                $this->orderItems[$existingItem['this_id']]['quantity'] += 1;
+                // dd($this->orderItems);
+            } 
+        }else{
+            $this->orderItems[] = [
+                'this_id' => count($this->orderItems),
+                'id' => $product->id,
+                'name' => $product->name,
+                'price' => $product->purchase_price,
+                'quantity' => 1,
+                'stock' => $product->stock,
+                'tax' => ($this->taxRate/100)*$product->purchase_price,
+            ];
         }
-        $this->orderItems[] = [
-            'this_id' => count($this->orderItems),
-            'id' => $product->id,
-            'name' => $product->name,
-            'price' => $product->purchase_price,
-            'quantity' => 1,
-            'stock' => $product->stock,
-            'tax' => ($this->taxRate/100)*$product->purchase_price,
-        ];
         $this->updatedTaxRate();
         $this->updatedDiscountRate();
     }
