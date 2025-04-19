@@ -21,6 +21,9 @@ class OrderCreate extends Component
     public $tax = 0;
     public $discountRate = 0;
     public $totalDiscount = 0;
+    public $paymentMethod = 'cash';
+    public $amountPaid = 0;
+    public $rest = 0;
 
     public function mount(Clint $clint)
     {
@@ -92,6 +95,10 @@ class OrderCreate extends Component
             $this->discountRate = 0;
             $this->totalDiscount = 0;
         }
+    }
+    public function updatedAmountPaid()
+    {
+        $this->rest = $this->total - $this->amountPaid;
     }
 
     public function getTotalProperty()

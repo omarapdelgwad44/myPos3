@@ -10,7 +10,7 @@
 @section('content')
 <div class="container">
     <h1>{{ @trans('adminlte::adminlte.user_management') }}</h1>
-    
+
     <div class="row mb-3">
         <!-- شريط البحث -->
         <form action="{{ route('dashboard.users.index') }}" method="GET" class="col-4 d-flex">
@@ -22,13 +22,13 @@
 
         @if(auth()->user()->hasPermission('users-create'))
             <div class="col-4 text-start">
-                <a href="{{ route('dashboard.users.create') }}" class="btn btn-success d-flex align-items-center justify-content-center" style="width: 100px;">
+                <a href="{{ route('users.create') }}" class="btn btn-success d-flex align-items-center justify-content-center" style="width: 100px;">
                     <i class="fa fa-plus ms-1"></i> {{ @trans('adminlte::adminlte.add') }}
                 </a>
             </div>
-            <a href="{{ route('users.create') }}" class="btn btn-success btn-sm">
+            {{-- <a href="{{ route('users.create') }}" class="btn btn-success btn-sm">
         <i class="fa fa-plus"></i> Add User form wizard
-    </a>
+    </a> --}}
         @endif
     </div>
 
@@ -53,7 +53,7 @@
                 <tr>
                     <td>{{ $user->id }}</td>
                     <td>
-                    <img src="{{ $user->image ? asset('images/users/' . $user->image) : asset('images/default-avatar.png') }}" 
+                    <img src="{{ $user->image ? asset('images/users/' . $user->image) : asset('images/default-avatar.png') }}"
                          alt="User Image" class="img-thumbnail" width="50" height="50">
                 </td>
                     <td>{{ $user->name }}</td>
